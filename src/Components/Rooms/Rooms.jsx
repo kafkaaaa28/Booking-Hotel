@@ -4,7 +4,6 @@ import { FaUser } from 'react-icons/fa';
 import { FaEye } from 'react-icons/fa';
 import { SlSizeFullscreen } from 'react-icons/sl';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 const RoomsAndSuites = ({ handlerooms }) => {
   const Navigate = useNavigate();
   const handleClick = (room) => {

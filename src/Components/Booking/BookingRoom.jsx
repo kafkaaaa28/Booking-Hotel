@@ -1,4 +1,3 @@
-import react from 'react';
 import { useLocation } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
 import { FaEye } from 'react-icons/fa';

@@ -2,25 +2,24 @@ import { Button, Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle }
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode'; // Menggunakan jwtDecode
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function Component() {
   const location = useLocation();
   const isHomepage = location.pathname === '/';
   const [name, setName] = useState('');
-  const [token, setToken] = useState('');
-  const [expire, setExpire] = useState('');
+  // const [token, setToken] = useState('');
 
-  useEffect(() => {
-    refreshToken();
-  }, []);
+  // useEffect(() => {
+  //   refreshToken();
+  // }, []);
 
   const Navigate = useNavigate();
 
   const refreshToken = async () => {
     try {
       const response = await axios.get('http://localhost:5000/token');
-      setToken(response.data.accessToken);
+      // setToken(response.data.accessToken);
       const decoded = jwtDecode(response.data.accessToken);
       setName(decoded.name);
       setExpire(decoded.exp);

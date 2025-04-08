@@ -1,4 +1,3 @@
-import react from 'react';
 import Learn from './Learnmore';
 import { useState, useEffect } from 'react';
 const Services = () => {
@@ -19,7 +18,7 @@ const Services = () => {
       {screen ? (
         <>
           <div className="mt-[70px] md:ml-[50px] md:mr-[50px] md:mt-0">
-            <img src="https://themes.getmotopress.com/albatross/wp-content/uploads/sites/37/2020/11/home-2.png" className="w-[350px] md:w-[450px] lg:w-[450px]" />
+            <img src="https://themes.getmotopress.com/albatross/wp-content/uploads/sites/37/2020/11/home-2.png" className="w-[350px] md:w-[450px] lg:w-[450px]" alt="wp" />
           </div>
           <div className="mt-[45px] w-[350px] lg:w-[500px] md:ml-[50px] md:w-[400px] md:mr-[50px]">
             <p className="text-white font-bold mt-[50px] md:text-[30px]">SERVICES</p>
@@ -39,7 +38,7 @@ const Services = () => {
             <Learn />
           </div>
           <div className="mt-[70px] md:ml-[50px] md:mr-[50px] md:mt-0">
-            <img src="https://themes.getmotopress.com/albatross/wp-content/uploads/sites/37/2020/11/home-2.png" className="w-[350px] md:w-[450px] lg:w-[450px]" />
+            <img src="https://themes.getmotopress.com/albatross/wp-content/uploads/sites/37/2020/11/home-2.png" className="w-[350px] md:w-[450px] lg:w-[450px]" alt="alba" />
           </div>
         </>
       )}

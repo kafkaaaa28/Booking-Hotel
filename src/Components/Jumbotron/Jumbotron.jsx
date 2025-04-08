@@ -1,6 +1,3 @@
-import react from 'react';
-import Navbar from './Navbar';
-import hotel from './hotel.webp';
 const Jumbotron = () => {
   return (
     <div>
