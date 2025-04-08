@@ -22,7 +22,6 @@ export default function Component() {
       // setToken(response.data.accessToken);
       const decoded = jwtDecode(response.data.accessToken);
       setName(decoded.name);
-      setExpire(decoded.exp);
     } catch (error) {
       if (error.response) {
         Navigate('/');
