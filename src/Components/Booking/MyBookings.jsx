@@ -62,7 +62,7 @@ const MyBookings = () => {
                     </td>
                     <td class="px-6 py-4">
                       {book.payment_proof && (
-                        <a href={`http://localhost:5000${book.payment_proof}`} target="_blank" rel="noopener noreferrer">
+                        <a href={`https://backend-hotel-production-206f.up.railway.app${book.payment_proof}`} target="_blank" rel="noopener noreferrer">
                           View Proof
                         </a>
                       )}
