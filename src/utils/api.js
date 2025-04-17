@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://192.168.100.230:5000/api', // Ganti dengan IP lokal laptop/PC
+  baseURL: 'https://backend-hotel-production-206f.up.railway.app/api', // Ganti dengan IP lokal laptop/PC
   withCredentials: true, // Jika menggunakan cookies
 });
 
