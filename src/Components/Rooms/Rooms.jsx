@@ -21,6 +21,7 @@ const RoomsAndSuites = ({ handlerooms }) => {
       },
     });
     handlerooms();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   const rooms = [
     {
@@ -81,7 +82,7 @@ const RoomsAndSuites = ({ handlerooms }) => {
   ];
 
   return (
-    <div className="text-center py-12 px-4 bg-[#FAF7F2]  ">
+    <div id="rooms" className="text-center py-12 px-4 bg-[#FAF7F2]  ">
       <h2 className="text-3xl font-semibold mb-8">Rooms & Suites</h2>
       <div className="flex space-x-8 overflow-x-auto  h-[70vh]  py-4 scroll-smooth">
         {rooms.map((room, index) => (

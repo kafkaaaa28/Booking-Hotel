@@ -10,6 +10,7 @@ export default function Component({ handlebook }) {
   const [Checkout, setCheckout] = useState('');
   const [daysBetween, setdaysBetween] = useState(null);
   const [Harga, setHarga] = useState(null);
+
   const location = useLocation();
   const { name, Price, imageUrl, imageUrl2, user, facility, size, description, amenities } = location.state || {};
 
@@ -51,6 +52,7 @@ export default function Component({ handlebook }) {
         },
       });
       handlebook();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       alert('Please select checkin and checkout date');
     }
