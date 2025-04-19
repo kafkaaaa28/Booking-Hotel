@@ -11,6 +11,8 @@ import Footer from './Components/Footer/Footer';
 import Navbars from './Components/Jumbotron/Navbar';
 import CheckBooking from './Components/Booking/CheckBooking';
 import Register from './Components/Login/Register';
+import Team from './Components/About/Team';
+import Contact from './Components/Contact/Contact';
 import { useState, useEffect } from 'react';
 import MyBookings from './Components/Booking/MyBookings';
 import Ceklogin from './Components/Login/Login';
@@ -77,6 +79,8 @@ function App() {
             <Route path="/my-bookings" element={<MyBookings />} />
             <Route path="/BookingConfirm" element={Book >= 1 ? <BookingConfirm setUser={setUser} setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated} /> : <Navigate to="/" />} />
             <Route path="/BookingRoom" element={Count >= 1 ? <BookingRoom handlebook={handlebook} /> : <Navigate to="/" />} />
+            <Route path="team" element={<Team />} />
+            <Route path="/Contact" element={<Contact />} />
             <Route
               path="/"
               element={

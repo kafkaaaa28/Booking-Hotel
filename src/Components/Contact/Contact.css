@@ -1,22 +1,23 @@
-.loader {
+.loaders {
   width: 200px;
-  height: 50px;
+  height: 70px;
   position: relative;
 }
 
-.loader-text {
+.loader-texts {
   position: absolute;
   top: 0;
   padding: 0;
   margin: 0;
-  color: #c8b6ff;
+  color: #911212f1;
   animation: text_713 3.5s ease both infinite;
   font-size: 0.8rem;
   letter-spacing: 1px;
+  margin-bottom: 10px;
 }
 
-.load {
-  background-color: #9a79ff;
+.loads {
+  background-color: #3f030a;
   border-radius: 50px;
   display: block;
   height: 16px;
@@ -27,12 +28,12 @@
   animation: loading_713 3.5s ease both infinite;
 }
 
-.load::before {
+.loads::before {
   position: absolute;
   content: '';
   width: 100%;
   height: 100%;
-  background-color: #d1c2ff;
+  background-color: #c12e2ef1;
   border-radius: inherit;
   animation: loading2_713 3.5s ease both infinite;
 }

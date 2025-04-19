@@ -74,7 +74,7 @@ export default function Component({ setIsAuthenticated, isAuthenticated, setUser
     try {
       const response = await api.post('/bookings', formDataToSend, {
         headers: {
-          'Content-Type': 'multipart/form-data', // Pastikan header ini di-set dengan benar
+          'Content-Type': 'multipart/form-data',
         },
       });
       handeSuccess();

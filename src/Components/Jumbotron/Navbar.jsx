@@ -96,11 +96,11 @@ const Navbars = ({ setIsAuthenticated, isAuthenticated, user, logout, setUser })
                 ) : (
                   ''
                 )}
-                <NavbarLink href="#" style={{ color: isHomepage ? '' : 'white' }}>
+                <NavbarLink as={Link} to="/team" style={{ color: isHomepage ? '' : 'white' }}>
                   About
                 </NavbarLink>
-                <NavbarLink href="#" style={{ color: isHomepage ? '' : 'white' }}>
-                  Services
+                <NavbarLink as={Link} to="/Contact" style={{ color: isHomepage ? '' : 'white' }}>
+                  Contact
                 </NavbarLink>
 
                 <NavbarLink as={Link} to="/my-bookings" style={{ color: isHomepage ? '' : 'white' }}>
@@ -119,12 +119,12 @@ const Navbars = ({ setIsAuthenticated, isAuthenticated, user, logout, setUser })
                 <NavbarLink style={{ color: isHomepage ? '' : 'black' }}>dashboard</NavbarLink>
               </Link>
             )}
-            <NavbarLink href="#" style={{ color: isHomepage ? '' : 'black' }}>
-              About
-            </NavbarLink>
-            <NavbarLink href="#" style={{ color: isHomepage ? '' : 'black' }}>
-              Contact
-            </NavbarLink>
+            <Link to={'/team'}>
+              <NavbarLink style={{ color: isHomepage ? '' : 'black' }}>About</NavbarLink>
+            </Link>
+            <Link to={'/Contact'}>
+              <NavbarLink style={{ color: isHomepage ? '' : 'black' }}>Contact</NavbarLink>
+            </Link>
             <NavbarLink as={Link} to="/my-bookings" style={{ color: isHomepage ? '' : 'black' }}>
               My Bookings
             </NavbarLink>
