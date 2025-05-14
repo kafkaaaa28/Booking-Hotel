@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://backend-hotel-production-206f.up.railway.app/api', // Ganti dengan IP lokal laptop/PC
-  withCredentials: true, // Jika menggunakan cookies
+  baseURL: 'https://backend-hotel-three.vercel.app/api',
+  withCredentials: true,
 });
 
 api.interceptors.request.use(
