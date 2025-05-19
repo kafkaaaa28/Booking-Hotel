@@ -9,7 +9,6 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Footer from './Components/Footer/Footer';
 import Navbars from './Components/Jumbotron/Navbar';
-import CheckBooking from './Components/Booking/CheckBooking';
 import Register from './Components/Login/Register';
 import Team from './Components/About/Team';
 import Contact from './Components/Contact/Contact';
@@ -25,6 +24,15 @@ function App() {
   const [Book, setBook] = useState(0);
 
   useEffect(() => {
+    const midtransScriptUrl = 'https://app.sandbox.midtrans.com/snap/snap.js';
+    const scriptTag = document.createElement('script');
+    scriptTag.src = midtransScriptUrl;
+
+    scriptTag.setAttribute('data-client-key', process.env.REACT_APP_MIDTRANS_CLIENT_KEY);
+
+    scriptTag.async = true;
+    document.body.appendChild(scriptTag);
+
     const checkAuth = async () => {
       try {
         const token = localStorage.getItem('token');
@@ -52,6 +60,9 @@ function App() {
       }
     };
     checkAuth();
+    return () => {
+      document.body.removeChild(scriptTag);
+    };
   }, []);
   const logout = () => {
     localStorage.removeItem('token');
@@ -73,7 +84,6 @@ function App() {
 
           <Routes>
             <Route path="/login" element={!isAuthenticated ? <Ceklogin setIsAuthenticated={setIsAuthenticated} setUser={setUser} /> : <Navigate to="/" />} />
-            <Route path="/CheckBooking" element={<CheckBooking />} />
             <Route path="/dashboard/*" element={isAuthenticated && user?.role === 'admin' ? <Dashboard /> : <Navigate to="/" />} />
             <Route path="/register" element={<Register />} />
             <Route path="/my-bookings" element={<MyBookings />} />

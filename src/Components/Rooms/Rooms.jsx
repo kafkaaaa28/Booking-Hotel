@@ -26,7 +26,7 @@ const RoomsAndSuites = ({ handlerooms }) => {
   const rooms = [
     {
       name: 'Classic Double Room',
-      Price: '150',
+      Price: '150000',
       imageUrl: 'https://themes.getmotopress.com/albatross/wp-content/uploads/sites/37/2020/11/standard-single-room-920x650.jpg',
       imageUrl2: 'https://themes.getmotopress.com/albatross/wp-content/uploads/sites/37/2020/11/comfort-triple-room-920x650.jpg',
       user: '2',
@@ -37,7 +37,7 @@ const RoomsAndSuites = ({ handlerooms }) => {
     },
     {
       name: 'Comfort Triple Room',
-      Price: '250',
+      Price: '250000',
       imageUrl: 'https://themes.getmotopress.com/albatross/wp-content/uploads/sites/37/2020/11/comfort-triple-room-920x650.jpg',
       imageUrl2: 'https://themes.getmotopress.com/albatross/wp-content/uploads/sites/37/2020/11/comfort-triple-room2-920x650.jpg',
       user: '3',
@@ -48,7 +48,7 @@ const RoomsAndSuites = ({ handlerooms }) => {
     },
     {
       name: 'Standard Single Room',
-      Price: '100',
+      Price: '100000',
       imageUrl: 'https://themes.getmotopress.com/albatross/wp-content/uploads/sites/37/2020/11/standard-single-room2-1536x1095.jpg',
       imageUrl2: 'https://themes.getmotopress.com/albatross/wp-content/uploads/sites/37/2020/11/standard-single-room-920x650.jpg',
       user: '1',
@@ -59,7 +59,7 @@ const RoomsAndSuites = ({ handlerooms }) => {
     },
     {
       name: 'Superior Double Room',
-      Price: '200',
+      Price: '200000',
       imageUrl: 'https://themes.getmotopress.com/albatross/wp-content/uploads/sites/37/2020/11/superior-double-room2-1536x1094.jpg',
       imageUrl2: 'https://themes.getmotopress.com/albatross/wp-content/uploads/sites/37/2020/11/superior-double-room-920x650.jpg',
       user: '2',
@@ -70,7 +70,7 @@ const RoomsAndSuites = ({ handlerooms }) => {
     },
     {
       name: 'Mountain View Suite',
-      Price: '250',
+      Price: '250000',
       imageUrl: 'https://themes.getmotopress.com/albatross/wp-content/uploads/sites/37/2020/11/classic-double-room-920x650.jpg',
       imageUrl2: 'https://themes.getmotopress.com/albatross/wp-content/uploads/sites/37/2020/11/standard-single-room-920x650.jpg',
       user: '4',
@@ -82,7 +82,7 @@ const RoomsAndSuites = ({ handlerooms }) => {
   ];
 
   return (
-    <div id="rooms" className="text-center py-12 px-4 bg-[#FAF7F2]  ">
+    <div id="rooms" className="text-center py-12 px-4 bg-[#FAF7F2] md:h-[60vh] lg:h-screen">
       <h2 className="text-3xl font-semibold mb-8">Rooms & Suites</h2>
       <div className="flex space-x-8 overflow-x-auto  h-[70vh]  py-4 scroll-smooth">
         {rooms.map((room, index) => (
@@ -94,7 +94,7 @@ const RoomsAndSuites = ({ handlerooms }) => {
             <button onClick={() => handleClick(room)}>
               <h3 className="text-xl font-medium mb-2 hover:text-[#3F030A]">{room.name}</h3>
             </button>
-            <p className="text-gray-600">${room.Price} / Night</p>
+            <p className="text-gray-600">Rp. {room.Price} / Night</p>
             <div className="flex justify-evenly mt-5">
               <div className="flex gap-3">
                 <FaUser />

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import api from '../../utils/api';
+import DataPayments from './DataPayments';
 import UserList from './UserList';
 import Navdashboard from './Navdashboard';
 import DataBookings from './DataBookings';
@@ -17,6 +16,7 @@ const Dashboard = () => {
             <Route index element={<Databoard />} />
             <Route path="Userlist" element={<UserList />} />
             <Route path="Databookings" element={<DataBookings />} />
+            <Route path="DataPayments" element={<DataPayments />} />
           </Routes>
         </div>
       </div>

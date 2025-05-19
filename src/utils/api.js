@@ -1,10 +1,13 @@
 import axios from 'axios';
 
+// const api = axios.create({
+//   baseURL: 'https://backend-hotel-three.vercel.app/api',
+//   withCredentials: true,
+// });
 const api = axios.create({
-  baseURL: 'https://backend-hotel-three.vercel.app/api',
+  baseURL: 'http://localhost:5000/api',
   withCredentials: true,
 });
-
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');

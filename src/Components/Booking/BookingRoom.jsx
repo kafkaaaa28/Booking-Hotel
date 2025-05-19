@@ -9,7 +9,7 @@ export default function Component({ handlebook }) {
   const [Checkin, setCheckin] = useState('');
   const [Checkout, setCheckout] = useState('');
   const [daysBetween, setdaysBetween] = useState(null);
-  const [Harga, setHarga] = useState(null);
+  const [harga, setHarga] = useState(null);
 
   const location = useLocation();
   const { name, Price, imageUrl, imageUrl2, user, facility, size, description, amenities } = location.state || {};
@@ -45,7 +45,7 @@ export default function Component({ handlebook }) {
       Navigate('/BookingConfirm', {
         state: {
           name,
-          Harga,
+          harga,
           daysBetween,
           Checkin,
           Checkout,
@@ -72,7 +72,7 @@ export default function Component({ handlebook }) {
           </div>
           <div className="bg-white border flex flex-col border-gray-300 rounded-lg shadow-lg h-[300px] mt-[30px] w-[350px] mr-[10px] ml-[10px] md:w-[700px] md:ml-[30px] lg:h-[370px] lg:w-[500px]">
             <div className="ml-[40px] mt-[30px] mr-[30px]">
-              <p className="text-black text-[20px]">$ {Price} / Night</p>
+              <p className="text-black text-[20px]">Rp. {Price} / Night</p>
               <div className="flex gap-4 my-[20px]">
                 <FaUser className="text-[13px] " />
                 <p className="text-[13px]">Adults : {user}</p>
@@ -104,9 +104,9 @@ export default function Component({ handlebook }) {
             </label>
             <input type="date" id="date" name="date" value={Checkout} onChange={handleDateCheckout} className="border border-gray-300 rounded p-2 w-[300px] md:w-[500px] lg:w-[400px]" required />
             {Checkout && <p className="mt-4 text-gray-600">Selected date: {Checkout}</p>}
-            {daysBetween && Harga !== null ? (
+            {daysBetween && harga !== null ? (
               <p className="mt-4 text-gray-600">
-                $ {Harga} / for {daysBetween} Nights{' '}
+                Rp. {harga} / for {daysBetween} Nights{' '}
               </p>
             ) : (
               ''
@@ -116,7 +116,7 @@ export default function Component({ handlebook }) {
               onClick={handelBooking}
               class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-[50px] md:w-[500px] lg:w-[400px]"
             >
-              {daysBetween && Harga !== null ? 'CONFIRM RESERVATION' : 'CHECK AVALIABLE'}
+              {daysBetween && harga !== null ? 'CONFIRM RESERVATION' : 'CHECK AVALIABLE'}
             </button>
           </div>
         </div>

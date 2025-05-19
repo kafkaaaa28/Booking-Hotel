@@ -106,13 +106,6 @@ const DataBookings = () => {
                   <td class="px-6 py-4">{new Date(book.check_in).toLocaleDateString()}</td>
                   <td class="px-6 py-4">{new Date(book.check_out).toLocaleDateString()}</td>
                   <td class="px-6 py-4">
-                    {book.payment_proof && (
-                      <a href={book.payment_proof} target="_blank" rel="noopener noreferrer">
-                        View Proof
-                      </a>
-                    )}
-                  </td>
-                  <td class="px-6 py-4">
                     <span className={`px-2 py-1 rounded-full text-xs ${book.status === 'confirmed' ? 'bg-green-200 text-green-800' : book.status === 'cancelled' ? 'bg-red-200 text-red-800' : 'bg-yellow-200 text-yellow-800'}`}>
                       {book.status}
                     </span>

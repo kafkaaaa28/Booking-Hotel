@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { FaBars, FaHome, FaAddressBook } from 'react-icons/fa';
+import { FaBars, FaHome, FaAddressBook, FaMoneyCheckAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const Navdashboard = () => {
@@ -41,10 +41,16 @@ const Navdashboard = () => {
                 </svg>
                 <span className="flex-1 ms-3 whitespace-nowrap">Users</span>
               </Link>
-              <li c>
+              <li>
                 <Link to={'/dashboard/Databookings'} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                   <FaAddressBook />
                   <span className="flex-1 ms-3 whitespace-nowrap">UserBookings</span>
+                </Link>
+              </li>
+              <li>
+                <Link to={'/dashboard/DataPayments'} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <FaMoneyCheckAlt />
+                  <span className="flex-1 ms-3 whitespace-nowrap">Data Payments</span>
                 </Link>
               </li>
             </li>

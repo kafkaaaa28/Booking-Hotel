@@ -3,12 +3,16 @@ import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { FaBarsProgress } from 'react-icons/fa6';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import ModalPay from './ModalPay';
 import api from '../../utils/api';
 const Navbars = ({ setIsAuthenticated, isAuthenticated, user, logout, setUser }) => {
   const location = useLocation();
   const isHomepage = location.pathname === '/';
+  const MyBookings = location.pathname === '/my-bookings';
   const [isOpen, setIsOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [modalState, setModalState] = useState('closed');
+
   const Navigate = useNavigate();
   const handleClose = () => setIsOpen(false);
   const [screen, setScreen] = useState(window.innerWidth < 768);
@@ -32,11 +36,20 @@ const Navbars = ({ setIsAuthenticated, isAuthenticated, user, logout, setUser })
     };
     validateToken();
     window.addEventListener('resize', handleResize);
-
+    if (modalState === 'closing') {
+      setTimeout(() => {
+        setModalState('closed');
+      }, 300);
+      document.body.style.overflow = 'auto';
+    } else if (modalState === 'opening') {
+      document.body.style.overflow = 'hidden';
+    }
     return () => {
       window.removeEventListener('resize', handleResize);
+      document.body.style.overflow = 'auto';
     };
-  }, []);
+  }, [modalState]);
+
   const handleLogout = async () => {
     try {
       await api.post('/auth/logout');
@@ -106,6 +119,17 @@ const Navbars = ({ setIsAuthenticated, isAuthenticated, user, logout, setUser })
                 <NavbarLink as={Link} to="/my-bookings" style={{ color: isHomepage ? '' : 'white' }}>
                   My Bookings
                 </NavbarLink>
+                {MyBookings && (
+                  <NavbarLink
+                    onClick={() => {
+                      setIsOpen(false);
+                      setModalState('opening');
+                    }}
+                    style={{ color: isHomepage ? '' : 'white' }}
+                  >
+                    How to Pay
+                  </NavbarLink>
+                )}
               </DrawerItems>
             </Drawer>
           </>
@@ -128,6 +152,11 @@ const Navbars = ({ setIsAuthenticated, isAuthenticated, user, logout, setUser })
             <NavbarLink as={Link} to="/my-bookings" style={{ color: isHomepage ? '' : 'black' }}>
               My Bookings
             </NavbarLink>
+            {MyBookings && (
+              <NavbarLink onClick={() => setModalState('opening')}>
+                <p className="text-black cursor-pointer">How to Pay</p>
+              </NavbarLink>
+            )}
           </NavbarCollapse>
         )}
       </Navbar>
@@ -148,6 +177,7 @@ const Navbars = ({ setIsAuthenticated, isAuthenticated, user, logout, setUser })
           </div>
         </ModalBody>
       </Modal>
+      <ModalPay modalState={modalState} setModalState={setModalState} />
     </>
   );
 };

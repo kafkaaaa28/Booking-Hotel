@@ -3,14 +3,15 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Modal, ModalBody, ModalHeader } from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import api from '../../utils/api';
+import { Spinner } from 'flowbite-react';
 export default function Component({ setIsAuthenticated, isAuthenticated, setUser }) {
   const [openModal, setOpenModal] = useState(false);
   const location = useLocation();
-  const Navigate = useNavigate();
-  const [preview, setPreview] = useState('');
+  const navigate = useNavigate();
   const [success, setSuccess] = useState(false);
-
-  const { name, Harga, daysBetween, Checkin, Checkout } = location.state || {};
+  const [loading, setLoading] = useState(false);
+  const [navigateData, setNavigateData] = useState(null);
+  const { name, harga, daysBetween, Checkin, Checkout } = location.state || {};
   const { state } = useLocation();
 
   useEffect(() => {
@@ -37,55 +38,69 @@ export default function Component({ setIsAuthenticated, isAuthenticated, setUser
   const Toggler = () => {
     setOpenModal(!openModal);
   };
-  const handeSuccess = () => {
-    setSuccess(!success);
-  };
+
   const [formData, setFormData] = useState({
     nama: '',
     email: '',
     phone_number: '',
-    payment_proof: null,
   });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormData({ ...formData, payment_proof: file });
-    setPreview(URL.createObjectURL(file));
+  const goToMyBookings = () => {
+    navigate('/my-bookings', { state: navigateData });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const formDataToSend = new FormData();
     formDataToSend.append('nama', formData.nama);
     formDataToSend.append('email', formData.email);
     formDataToSend.append('phone_number', formData.phone_number);
-    formDataToSend.append('payment_proof', formData.payment_proof);
-
+    formDataToSend.append('name', state.name);
     formDataToSend.append('check_in', state.Checkin);
     formDataToSend.append('check_out', state.Checkout);
-    formDataToSend.append('harga', parseInt(state.Harga, 10));
+    formDataToSend.append('harga', parseInt(state.harga, 10));
     for (let [key, value] of formDataToSend.entries()) {
       console.log(`${key}:`, value);
     }
     try {
       const response = await api.post('/bookings', formDataToSend, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/json',
         },
       });
-      handeSuccess();
+      const booking = response.data;
+      const booking_id = booking.id || booking.data?.id;
+      setNavigateData({
+        booking_id,
+        nama: formData.nama,
+        email: formData.email,
+        phone_number: formData.phone_number,
+        harga,
+        name,
+        daysBetween,
+      });
+      setLoading(false);
+      setSuccess(true);
     } catch (err) {
+      setLoading(false);
+
       alert('Gagal membuat booking: ' + (err.response?.data?.message || err.message));
     }
   };
-
+  if (loading)
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <Spinner color="info" aria-label="Info spinner example" />
+      </div>
+    );
   return (
     <>
-      <div className="h-[300vh] md:h-[200vh] lg:h-[380vh] bg-[#FAF7F2] w-full">
+      <div className="h-[230vh] md:h-[160vh] lg:h-[270vh] bg-[#FAF7F2] w-full">
         <div className="flex flex-col justify-center items-center">
           <p className="font-bold text-[20px] mt-[20px]">Booking Confirmation</p>
           <div className="bg-white border flex flex-col justify-center items-center border-gray-300 rounded-lg shadow-lg h-[300px] mt-[30px] w-[350px] mr-[10px] ml-[10px] md:w-[700px] md:ml-[30px] lg:h-[370px] lg:w-[500px]">
@@ -126,47 +141,10 @@ export default function Component({ setIsAuthenticated, isAuthenticated, setUser
               <p className="text-black">
                 Total <span className="ml-[30px]">:</span>
               </p>
-              <p className="text-black">$ {Harga}</p>
+              <p className="text-black">Rp. {harga}</p>
             </div>
           </div>
-          <div className="bg-white border flex flex-col border-gray-300 rounded-lg shadow-lg h-[300px] mt-[30px] w-[350px] mr-[10px] ml-[10px] md:w-[700px] md:ml-[30px] lg:h-[370px] lg:w-[500px]">
-            <p className="text-[20px] mt-[17px] text-center">Payment Method</p>
-            <div className="ml-[20px] mr-[20px] mt-[20px]">
-              <div className="flex items-start mb-5">
-                <div className="flex items-center h-5">
-                  <input id="pay-on-arrival" type="radio" name="payment-method" value="pay-on-arrival" className="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300" required />
-                </div>
-                <div className="flex flex-col">
-                  <label htmlFor="pay-on-arrival" className="ms-2 text-sm font-medium text-gray-900">
-                    Pay on Arrival
-                  </label>
-                  <p className="text-gray-400 text-[10px]">Pay with cash on arrival.</p>
-                </div>
-              </div>
-              <div className="flex items-start mb-5">
-                <div className="flex items-center h-5">
-                  <input id="direct-bank-transfer" type="radio" name="payment-method" value="direct-bank-transfer" className="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300" required />
-                </div>
-                <div className="flex flex-col">
-                  <label htmlFor="direct-bank-transfer" className="ms-2 text-sm font-medium text-gray-900">
-                    Direct Bank Transfer
-                  </label>
-                  <p className="text-gray-400 text-[10px]">Make your payment directly into our bank account. Please use your Booking ID as the payment reference.</p>
-                </div>
-              </div>
-              <div className="flex items-start mb-5">
-                <div className="flex items-center h-5">
-                  <input id="pay-by-card" type="radio" name="payment-method" value="pay-by-card" className="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300" required />
-                </div>
-                <div className="flex flex-col">
-                  <label htmlFor="pay-by-card" className="ms-2 text-sm font-medium text-gray-900">
-                    Pay by Card (Stripe)
-                  </label>
-                  <p className="text-gray-400 text-[10px]">Pay with your credit card via Stripe. Use the card number 4242424242424242 with CVC 123, a valid expiration date and random 5-digit ZIP code to test a payment.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+
           <div className="bg-white border flex flex-col justify-center items-center border-gray-300 rounded-lg shadow-lg min-h-[400px] mt-[30px] w-[350px] mr-[10px] ml-[10px] md:w-[700px] md:ml-[30px] lg:h-[550px] lg:w-[500px]">
             <form onSubmit={handleSubmit} class="max-w-sm mx-auto">
               <div class="mb-5 mt-5">
@@ -213,14 +191,8 @@ export default function Component({ setIsAuthenticated, isAuthenticated, setUser
                   placeholder="0893156759"
                   required
                 />
-                <div className="flex flex-col justify-center items-center">
-                  <label htmlFor="file-upload" className="block text-[14px]  font-medium text-gray-700 text-center">
-                    proof of payment
-                  </label>
-                  <input type="file" id="file-upload" name="payment_proof" accept="image/*" onChange={handleFileChange} className="mt-2 border border-gray-300 rounded-md p-1  w-[300px]" required />
-                  {preview && <img src={preview} alt="Preview" style={{ maxWidth: '200px' }} />}
-                </div>
-                <p>Total Price $ {Harga}</p>
+
+                <p>Total Price Rp. {harga}</p>
                 {isAuthenticated ? (
                   <button
                     type="submit"
@@ -264,9 +236,15 @@ export default function Component({ setIsAuthenticated, isAuthenticated, setUser
         <ModalBody className="bg-white">
           <div className="text-center">
             <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-red-400 " />
-            <h3 className="mb-5 text-lg font-normal text-black">Booking Berhasil</h3>
+            <h3 className="mb-5 text-lg font-normal text-black">Booking Berhasil Silahkan melanjutkan pembayaran dihalaman mybookings</h3>
             <div className="flex bg-green-400 justify-center gap-4">
-              <Button color="failure" onClick={() => Navigate('/my-bookings')}>
+              <Button
+                color="failure"
+                onClick={() => {
+                  setSuccess(false);
+                  goToMyBookings();
+                }}
+              >
                 {'oke'}
               </Button>
             </div>
